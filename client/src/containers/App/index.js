@@ -1,7 +1,9 @@
 //turning into class based component
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react';
 
+import Counter from '../Counter';
 import Navbar from './../../components/Navbar';
 
 class App extends Component {
@@ -11,6 +13,7 @@ class App extends Component {
         <Grid.Column style={{ maxWidth: 700 }}>
           {/* build a navbar to navigate through pages */}
           <Navbar/>
+          <Route exact path='/counter' component={Counter}/>
         </Grid.Column>
       </Grid>
     );

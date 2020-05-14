@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Grid, Header, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+
+import { increment } from '../../actions/counter';
+
 
 class Counter extends Component {
   render() {
@@ -12,7 +16,7 @@ class Counter extends Component {
             content='Welcome to the Counter App'
           />
           <Header as='h2' textAlign='center'>
-            Counter: <span>0</span>
+            Counter: <span>{this.props.counter}</span>
           </Header>
           <Button.Group>
             <Button
@@ -25,6 +29,8 @@ class Counter extends Component {
               icon='plus circle'
               content='Increment'
               positive
+              //pass value from higher order component
+              onClick={ this.props.increment }
             />
           </Button.Group>
         </Grid.Column>
@@ -33,3 +39,20 @@ class Counter extends Component {
   }
 };
 
+//HIGHER ORDER COMPONENT
+
+//convention for all react-redux apps
+// asking what piece of state we are pulling out
+function mapStateToProps(state) {
+  //return an object with a key of what you want state named as
+  return { counter: state.counter } // what part of state
+};
+
+// 2nd parameter to connect is what actions we want wired up to this component
+// To be sent to all of our reducers
+
+export default connect(mapStateToProps, { increment })(Counter);
+
+// connect(mapStateToProps, { increment })
+
+// export default Counter;
