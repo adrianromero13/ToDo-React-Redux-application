@@ -2,7 +2,7 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
-export default combinedReducers({
+export default combineReducers({
     //pass logic 
     form: formReducer
 });
