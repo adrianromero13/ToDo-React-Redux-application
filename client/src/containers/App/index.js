@@ -9,6 +9,7 @@ import { Grid } from 'semantic-ui-react';
 import Counter from '../Counter';
 import AllTodosList from '../AllTodosList';
 import Navbar from './../../components/Navbar';
+import SignUp from '../SignUp';
 
 class App extends Component {
   render () {
@@ -20,6 +21,7 @@ class App extends Component {
           {/* <p>{ this.props.counter }</p>  the way to set up HOC (Higher Order Component) to place state in any component */}
           <Route exact path='/counter' component={Counter}/>
           <Route exact path='/alltodos' component={AllTodosList}/>
+          <Route exact path='/' component={SignUp}/>
         </Grid.Column>
       </Grid>
     );
