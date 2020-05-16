@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'; // Higher order component HOA
+import axios from 'axios';
 import { Form, Segment, Button } from 'semantic-ui-react';
 import { email, length, required } from 'redux-form-validators'; //validators  
 
@@ -72,4 +73,18 @@ class SignUp extends Component { //Must define statelss funciton outside of the 
   }
 }
 
-export default reduxForm({ form: 'signup' })(SignUp);
+const asyncValidate = async formValues => {
+  try {
+    const { data } = await axios.get('/api/user/emails');
+    //use some() for object returned { _id: email }
+    const foundEmail = data.some(user => user.email === formValues.email )
+    if(foundEmail) {
+      throw new Error();
+    }
+  } catch (e) {
+    // eslint-disable-next-line no-throw-literal
+    throw { email: 'Email already exists, please sign up with a different Email' };
+  }
+}
+
+export default reduxForm({ form: 'signup', asyncValidate, asyncChangeFields: [ 'email' ] })(SignUp);

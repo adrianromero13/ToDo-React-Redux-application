@@ -8,8 +8,8 @@ import todosReducer from './todosReducer';
 
 //manny likes to put form reducers last
 export default combineReducers({
-    todos: todosReducer,
-    counter: counterReducer,
-    //pass logic 
-    form: formReducer
+  todos: todosReducer,
+  counter: counterReducer,
+  //pass logic 
+  form: formReducer
 });

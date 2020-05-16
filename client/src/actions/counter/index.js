@@ -3,13 +3,13 @@ import { INCREMENT, DECREMENT } from '../types';
 // the object that an action creators should MUST HAVE a type property
 
 export const increment = () => {
-    return {
-        type:INCREMENT
-    };
+  return {
+    type: INCREMENT
+  };
 };
 
 export const decrement = () => {
-    return {
-        type:DECREMENT
-    };
+  return {
+    type: DECREMENT
+  };
 };

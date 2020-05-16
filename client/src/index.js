@@ -7,25 +7,25 @@ import reduxThunk from 'redux-thunk';
 
 import App from './containers/App';
 //folder inside of src/reducers
-import reducers from './reducers'; 
+import reducers from './reducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // this will take three parameters
 const store = createStore(
-    // 1st: reducers 
-    reducers,
-    // 2nd: preloaded state wanted
-    {},
-    // 3rd: any middleware
-    composeEnhancers(applyMiddleware(reduxThunk))
+  // 1st: reducers 
+  reducers,
+  // 2nd: preloaded state wanted
+  {},
+  // 3rd: any middleware
+  composeEnhancers(applyMiddleware(reduxThunk))
 );
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router>
-        <App />
-        </Router>
-    </Provider>
-    ,
-    document.getElementById('root'));
+  <Provider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </Provider>
+  ,
+  document.getElementById('root'));
