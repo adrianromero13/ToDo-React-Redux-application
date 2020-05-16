@@ -7,7 +7,7 @@ import reduxThunk from 'redux-thunk';
 
 import App from './containers/App';
 //folder inside of src/reducers
-import reducers from './reducers';
+import reducers from './reducers'; 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
