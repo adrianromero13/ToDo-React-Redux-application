@@ -5,8 +5,15 @@ import { Header, Form, Segment, Message, List, Pagination } from 'semantic-ui-re
 import { compose } from 'redux';
 import axios from 'axios';
 
+import { getUserTodos } from './../../actions/todos';
+
 
 class UserTodoList extends Component {
+
+  componentDidMount () {
+    this.props.getUserTodos();
+  }
+
   renderAddTodo = ({ input, meta }) => {
     return (
       <>
@@ -40,5 +47,32 @@ class UserTodoList extends Component {
   }
 }
 
-//decorating with reduxForm
-export default reduxForm({ form: 'addUserTodo' })(UserTodoList);
+// function matStateToProps(state) {
+//   return {
+//     todos: state.todos.userTodos,
+//     clientError: state.todos.getUserTodosClientError,
+//     serverError: state.todos.getUserTodosServerError
+//   };
+// }
+
+// 
+function mapStateToProps({ todos: { userTodos, getUserTodosServerError, getUserTodosClientError } }) {
+  return {
+    todos: userTodos,
+    clientError: getUserTodosClientError,
+    serverError: getUserTodosServerError
+  };
+}
+
+// 1st way
+// export default reduxForm({ form: 'addTodo' })(connect(mapStateToProps, { getUserTodos })(UserTodoList));
+
+// 2nd way
+// const composedComponent = connect(mapStateToProps, { getUserTodos })(UserTodoList);
+// export default reduxForm({ form: 'addTodo'})(composedComponent);
+
+// 3rd way
+export default compose(
+  reduxForm({ form: 'addTodo' }),
+  connect(mapStateToProps, { getUserTodos })
+)(UserTodoList);
