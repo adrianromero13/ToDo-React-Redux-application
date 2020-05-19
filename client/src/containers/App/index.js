@@ -12,6 +12,7 @@ import AllTodosList from '../AllTodosList';
 import Navbar from './../../components/Navbar';
 import SignUp from '../SignUp';
 import SignOut from '../SignOut';
+import SignIn from '../SignIn';
 
 class App extends Component {
   render () {
@@ -26,6 +27,7 @@ class App extends Component {
           <Route exact path='/alltodos' component={AllTodosList}/>
           <Route exact path='/' component={SignUp}/>
           <Route exact path='/signOut' component={SignOut} />
+          <Route exact path='/signIn' component={SignIn} />
         </Grid.Column>
       </Grid>
     );
