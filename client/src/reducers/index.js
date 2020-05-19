@@ -9,6 +9,7 @@ import authReducer from './authReducer';
 
 //manny likes to put form reducers last
 export default combineReducers({
+  //combined reducers
   auth: authReducer,
   todos: todosReducer,
   counter: counterReducer,

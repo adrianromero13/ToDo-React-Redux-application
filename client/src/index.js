@@ -16,7 +16,8 @@ const store = createStore(
   // 1st: reducers 
   reducers,
   // 2nd: preloaded state wanted
-  {},
+  //like state.auth to push authentication to when it is needed
+  { auth: { authenticated: localStorage.getItem('token') } },
   // 3rd: any middleware
   composeEnhancers(applyMiddleware(reduxThunk))
 );
