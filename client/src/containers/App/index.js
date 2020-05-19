@@ -11,6 +11,7 @@ import Counter from '../Counter';
 import AllTodosList from '../AllTodosList';
 import Navbar from './../../components/Navbar';
 import SignUp from '../SignUp';
+import SignOut from '../SignOut';
 
 class App extends Component {
   render () {
@@ -19,10 +20,12 @@ class App extends Component {
         <Grid.Column style={{ maxWidth: 700 }}>
           {/* build a navbar to navigate through pages  and authenticated using token passed down from state as props*/}
           <Navbar isLoggedIn={this.props.authenticated}/>
+          
           {/* <p>{ this.props.counter }</p>  the way to set up HOC (Higher Order Component) to place state in any component */}
           <Route exact path='/counter' component={Counter}/>
           <Route exact path='/alltodos' component={AllTodosList}/>
           <Route exact path='/' component={SignUp}/>
+          <Route exact path='/signOut' component={SignOut} />
         </Grid.Column>
       </Grid>
     );
