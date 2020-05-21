@@ -20,6 +20,7 @@ export default (props) => {
               color='blue'
               content='Mark Complete'
               size='small'
+              onClick={() => props.handUpdate(_id, completed, text)}
             />
           </List.Content>
         </List.Item>

@@ -7,7 +7,7 @@ import axios from 'axios';
 
 import UserTodoListItems from './UserTodoListItems';
 
-import { getUserTodos } from './../../actions/todos';
+import { getUserTodos, updateTodoCompletedById } from './../../actions/todos';
 import { ADD_TODO_ERROR, ADD_TODO } from './../../actions/types';
 
 
@@ -85,7 +85,11 @@ class UserTodoList extends Component {
         </Form>
         <List animated divided selection>
           {/* adding slice with state to create pagination */}
-          <UserTodoListItems todos={this.props.todos.slice(this.state.start, this.state.end)} /> {/* this.props.todos uptained from HOC from mapStateToProps and pass in to this container being rendered*/}
+          <UserTodoListItems 
+            todos={this.props.todos.slice(this.state.start, this.state.end)} 
+            handleUpdate={this.props.updateTodoCompletedById}
+          /> {/* this.props.todos uptained from HOC from mapStateToProps and pass in to this container being rendered*/}
+
         </List>
         {
           // if length is equal to 0 then do not render pagination
@@ -130,5 +134,6 @@ function mapStateToProps({ todos: { userTodos, getUserTodosServerError, getUserT
 // 3rd way
 export default compose(
   reduxForm({ form: 'addTodo' }),
-  connect(mapStateToProps, { getUserTodos })
+  // make sure your connect function has all the components 
+  connect(mapStateToProps, { getUserTodos, updateTodoCompletedById })
 )(UserTodoList);

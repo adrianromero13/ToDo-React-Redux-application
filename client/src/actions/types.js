@@ -13,6 +13,9 @@ export const GET_USER_TODOS_ERROR = 'GET_USER_TODOS_ERROR';
 export const ADD_TODO = 'ADD_TODO';
 export const ADD_TODO_ERROR = 'ADD_TODO_ERROR';
 
+// Update User Todo by ID
+export const UPDATE_TODO_BY_ID_ERROR = 'UPDATE_TODO_BY_ID_ERROR';
+
 //User authentication
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_USER_ERROR = 'AUTH_USER_ERROR';
