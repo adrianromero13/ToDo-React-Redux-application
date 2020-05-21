@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm, Field, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
-import { Header, Form, Segment, Message, List, Pagination } from 'semantic-ui-react';
+import { Header, Form, Segment, Message, List, Pagination, Button } from 'semantic-ui-react';
 import { compose } from 'redux';
 import axios from 'axios';
 
 import { getUserTodos } from './../../actions/todos';
+import { ADD_TODO_ERROR } from './../../actions/types';
 
 
 class UserTodoList extends Component {
+  onSubmit = async (formValues, dispatch) => {
+    try {
+      // formvalues = { text: 'whatever' } = req.body.text
+      //post request takes 3 params (link, what parameters you want to send to server, values (in this case a token for authentication))
+      await axios.post('/api/user/todos', formValues, { headers: { 'authorization': localStorage.getItem('token') } });
+      this.props.getUserTodos();
+    } catch (e) {
+      ;
+    }
+  }
 
-  componentDidMount () {
+  componentDidMount() {
     this.props.getUserTodos();
   }
 
@@ -18,8 +29,8 @@ class UserTodoList extends Component {
     return (
       <>
         <Form.Input
-          { ...input }
-          error={meta.touched && meta.error }
+          {...input}
+          error={meta.touched && meta.error}
           fluid
           autoComplete='off'
           placeholder='Add a todo'
@@ -29,16 +40,24 @@ class UserTodoList extends Component {
   }
 
   render() {
+    const { handleSubmit } = this.props;
     return (
       //parent tag
       <>
         <Header as='h2' color='teal' textAlign='center' content='Welcome to the todo app' />
-        <Form size='large'>
+        <Form size='large' onSubmit={handleSubmit(this.onSubmit)}>
           <Segment stacked>
             <Field
               name='text'
               component={this.renderAddTodo} //declare prior to render
 
+            />
+            <Button
+            // this will just use the form's onSubmit function when submit button is clicked
+              type='submit'
+              fluid
+              color='teal'
+              content='Add a Todo'
             />
           </Segment>
         </Form>

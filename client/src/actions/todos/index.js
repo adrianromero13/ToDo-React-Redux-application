@@ -38,9 +38,9 @@ export const getAllTodos = () => async dispatch => { //a function that emmidiate
 
 export const getUserTodos = () => async dispatch => {
   try {
-    const { data } = await axios.get('/api/user/todos', { headers: { 'authorization': localStorage.getItem('token') } });
+    const { data } = await axios.get('/api/user/todos', { headers: { 'authorization': localStorage.getItem('token')} });
     dispatch({ type: GET_USER_TODOS, payload: data });
   } catch (e) {
     dispatch({ type: GET_USER_TODOS_ERROR, serverError: e, userError: 'Please refresh the page and try again' });
   }
-}
+};
