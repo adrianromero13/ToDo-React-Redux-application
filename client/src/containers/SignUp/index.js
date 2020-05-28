@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'; // Higher order component HOA
-import axios from 'axios';
 import { Form, Segment, Button } from 'semantic-ui-react';
 import { email, length, required } from 'redux-form-validators'; //validators  
+import axios from 'axios';
 
 import { AUTH_USER, AUTH_USER_ERROR } from '../../actions/types';
 
@@ -12,14 +12,14 @@ class SignUp extends Component { //Must define statelss funciton outside of the 
     try {
       //formvalues looks like this { email: 'someEmail@.com, password: '123456' }
       const { data } = await axios.post('/api/auth/signup', formValues);
-      dispatch({ type: AUTH_USER,  payload: data.token })
+      localStorage.setItem('token', data.token);
+      dispatch({ type: AUTH_USER,  payload: data.token });
       this.props.history.push('/counter');
     } catch (e) {
-      dispatch({ type: AUTH_USER_ERROR, payload: e })
+      dispatch({ type: AUTH_USER_ERROR, payload: e });
     }
   }
 
-  
   renderEmail = ({ input, meta }) => {
     return (
       <Form.Input
@@ -106,19 +106,5 @@ const asyncValidate = async formValues => {
     throw { email: 'Email already exists, please sign up with a different email' };
   }
 }
-
-// const asyncValidate = async formValues => {
-//   try {
-//     const { data } = await axios.get('/api/user/emails');
-//     //use some() for object returned { _id: email }
-//     const foundEmail = data.some(user => user.email === formValues.email )
-//     if(foundEmail) {
-//       throw new Error();
-//     }
-//   } catch (e) {
-//     // eslint-disable-next-line no-throw-literal
-//     throw { email: 'Email already exists, please sign up with a different Email' };
-//   }
-// }
 
 export default reduxForm({ form: 'signup', asyncValidate, asyncChangeFields: [ 'email' ] })(SignUp);

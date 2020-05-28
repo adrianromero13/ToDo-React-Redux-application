@@ -1,33 +1,25 @@
 import React from 'react';
 import { Header, List, Button } from 'semantic-ui-react';
 
-import DeleteTodoModal from './../../../components/DeleteTodoModel';
+import DeleteTodoModal from './../../../components/DeleteTodoModal';
 
-
-
-//using an if statement so use {}
 export default (props) => {
   if (props.todos.length === 0) {
-    return <Header content='No todos yet, please add a todo' />
-  }
-  else {
-    return props.todos.map(({ _id, completed, text }) => { // this (todo) is an object
+    return <Header content='No todos yet, please add a todo'/>
+  } else {
+    return props.todos.map(({_id, completed, text}) => {
       return (
-        //this top level component needs to have a key prop
-        <List.Item kkey={_id}>
+        <List.Item key={_id}>
           <List.Content floated='left'>
-            {/* in case completed is true, set text decoration 'line-through', otherwise we want no textDecoration */}
-            <p style={{ textDecoration: completed ? 'line-through' : 'none', fontSize: '20px' }} >{text}</p>
+            <p style={{ textDecoration: completed ? 'line-through' : 'none', fontSize: '20px'}} >{text}</p>
           </List.Content>
           <List.Content floated='right'>
             <Button
               color='blue'
               content='Mark Complete'
               size='small'
-              onClick={() => props.handUpdate(_id, completed, text)}
-            />
+              onClick={ () => props.handleUpdate(_id, completed, text )}/>
             <DeleteTodoModal handleDelete={props.handleDelete} id={_id} text={text}/>
-            {/* create delete function  */}
           </List.Content>
         </List.Item>
       );

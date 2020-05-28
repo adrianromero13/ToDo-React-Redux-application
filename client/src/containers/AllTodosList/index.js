@@ -3,22 +3,20 @@ import { List, Header, Message } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 import { getAllTodos } from './../../actions/todos';
-import moment from 'moment'; //
 
-
-
+import moment from 'moment';
 
 class AllTodosList extends Component {
-
   componentDidMount() {
+    console.log("Inside of componentDidMount");
     this.props.getAllTodos();
   }
 
   renderList = () => {
     if (this.props.allTodos.length === 0) {
-      return < Header content='No todos yet' />
+      return <Header content='No todos yet'/>;
     } else {
-      return this.props.allTodos.map(({ _id, text, dateCreated }) => { //destructuring the data 
+      return this.props.allTodos.map(({ _id, text, dateCreated}) => {
         return (
           <List.Item key={_id}>
             <List.Content>
@@ -32,18 +30,18 @@ class AllTodosList extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
-      <List celled selection animated size='huge'> {/* selection has a hover effect built in, celled property adds borders around the list items   */}
-        { this.props.getAllTodosError ? <Message negative header={ this.props.getAllTodosError } /> : null }
+      <List celled selection size='huge'>
+        { this.props.getAllTodosError ? <Message negative header={this.props.getAllTodosError}/> : null }
         { this.renderList() }
-      </List >
+      </List>
     );
   }
 }
 
 function mapStateToProps(state) {
-  //allTodos = prop name
-  return { allTodos: state.todos.allTodos, getAllTodosError: state.todos.getAllTodosError }; // get errors
+  return { allTodos: state.todos.allTodos, getAllTodosError: state.todos.getAllTodosError };
 }
 
 export default connect(mapStateToProps, { getAllTodos })(AllTodosList);

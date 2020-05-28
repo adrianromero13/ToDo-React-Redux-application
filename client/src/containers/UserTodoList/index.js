@@ -2,18 +2,24 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 import { Header, Form, Segment, Message, List, Pagination, Button } from 'semantic-ui-react';
+
 import { compose } from 'redux';
 import axios from 'axios';
+
 import UserTodoListItems from './UserTodoListItems';
 import requireAuth from '../../hoc/requireAuth';
 import { getUserTodos, updateTodoCompletedById, deleteTodoById } from '../../actions/todos';
+
 import { ADD_TODO_ERROR, ADD_TODO } from '../../actions/types';
+
 class UserTodoList extends Component {
+
   state = {
     activePage: 1,
     start: 0,
     end: 10
   }
+
   onSubmit = async (formValues, dispatch) => {
     try {
       await axios.post('/api/user/todos', formValues, { headers: { 'authorization': localStorage.getItem('token')}} );
@@ -23,9 +29,11 @@ class UserTodoList extends Component {
       dispatch({ type: ADD_TODO_ERROR, payload: e });
     }
   }
+
   componentDidMount() {
     this.props.getUserTodos();
   }
+
   renderAddTodo = ({ input, meta }) => {
     return (
       <>
@@ -39,6 +47,7 @@ class UserTodoList extends Component {
       </>
     )
   }
+
   handlePageChange = (event, data) => {
     this.setState({
       activePage: data.activePage,
@@ -46,6 +55,7 @@ class UserTodoList extends Component {
       end: data.activePage * 10
     });
   }
+
   render() {
     const { handleSubmit } = this.props;
     console.log(this.props);
@@ -85,6 +95,7 @@ class UserTodoList extends Component {
     );
   }
 }
+
 // function mapStateToProps(state) {
 //   return {
 //     todos: state.todos.userTodos,
@@ -92,6 +103,7 @@ class UserTodoList extends Component {
 //     serverError: state.todos.getUserTodosServerError
 //   };
 // }
+
 function mapStateToProps({ todos: { userTodos, getUserTodosServerError, getUserTodosClientError, deleteTodoByIdError}}) {
   return {
     todos: userTodos,
@@ -100,12 +112,17 @@ function mapStateToProps({ todos: { userTodos, getUserTodosServerError, getUserT
     deleteTodoByIdError,
   };
 }
+
 // const composedComponent = connect(mapStateToProps, { getUserTodos })(UserTodoList);
+
+
 // 1 way
 // export default reduxForm({ form: 'addTodo' })(connect(mapStateToProps, { getUserTodos })(UserTodoList));
+
 // 2nd way
 // const composedComponent = connect(mapStateToProps, { getUserTodos })(UserTodoList);
 // export default reduxForm({ form: 'addTodo'})(composedComponent);
+
 export default compose(
   reduxForm({ form: 'addTodo' }),
   requireAuth,

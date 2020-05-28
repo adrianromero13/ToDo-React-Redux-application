@@ -8,7 +8,8 @@ import {
   DELETE_TODO_BY_ID_ERROR,
 } from '../actions/types';
 
-//how the actual state looks like
+
+
 const INITIAL_STATE = {
   allTodos: [],
   userTodos: [],
@@ -19,6 +20,7 @@ const INITIAL_STATE = {
   updateTodoError: '',
   deleteTodoByIdError: '',
 };
+
 
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -43,7 +45,7 @@ export default function (state = INITIAL_STATE, action) {
     case UPDATE_TODO_BY_ID_ERROR:
       return {...state, updateTodoError: action.payload };
     case DELETE_TODO_BY_ID_ERROR:
-      return {...state, deleteTodoByIdError: action.payload}
+      return {...state, deleteTodoByIdError: action.payload };
     default:
       return state;
   }

@@ -2,6 +2,22 @@ const { User, Todo } = require('../models/index');
 
 module.exports = {
 
+  addTodo: async (req, res) => {
+    const { text } = req.body;
+    if (!text) {
+      return res.status(400).json({ error: 'You must provide text' });
+    }
+    try {
+      const newTodo = await new Todo({ text, user: req.user._id }).save();
+      // const newTodo = await Todo.create({ text, user: req.user._id });
+      req.user.todos.push(newTodo);
+      await req.user.save();
+      return res.status(200).json(newTodo);
+    } catch (e) {
+      return res.status(403).json({ e });
+    }
+  },
+
   getAllUserEmails: async (req, res) => {
     try {
       const userEmail = await User.findOne({ email: req.query.email }, 'email');
@@ -11,34 +27,10 @@ module.exports = {
     }
   },
 
-  // getAllUserEmails: async (req, res) => {
-  //   try {
-  //     const userEmails = await User.find({}, 'email');
-  //     if (!userEmails) { return res.status(404).json({ error: 'No user emails found ' }); }
-  //     return res.status(200).json(userEmails);
-  //   } catch (e) {
-  //     return res.status(403).json({ e });
-  //   }
-  // },
   getUserTodos: async (req, res) => {
     try {
       const todos = await Todo.find({ user: req.user._id });
       return res.json(todos);
-    } catch (e) {
-      return res.status(403).json({ e });
-    }
-  },
-
-  addTodo: async (req, res) => {
-    const { text } = req.body;
-    if (!text) {
-      return res.status(400).json({ error: 'You must provide text' });
-    }
-    try {
-      const newTodo = await new Todo({ text, user: req.user._id }).save();
-      req.user.todos.push(newTodo);
-      await req.user.save();
-      return res.status(200).json(newTodo);
     } catch (e) {
       return res.status(403).json({ e });
     }
@@ -66,6 +58,7 @@ module.exports = {
       return res.status(403).json({ e });
     }
   },
+
   updateTodoById: async (req, res) => {
     //   Grab todoId from params
     const { todoId } = req.params;

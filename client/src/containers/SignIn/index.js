@@ -21,7 +21,7 @@ class SignIn extends Component {
         email: 'Please try again',
         password: 'You entered a bad password',
         _error: 'Login Failed'
-      })
+      });
     }
   }
 
@@ -53,14 +53,14 @@ class SignIn extends Component {
     );
   }
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const { invalid, submitting, submitFailed, handleSubmit } = this.props;
     return (
       <Form size='large' onSubmit={handleSubmit(this.onSubmit)}>
         <Segment stacked>
           <Field
             name='email'
             iscool='mannyiscool'
-            component={this.renderEmail}
+            component={ this.renderEmail }
             validate={
               [
                 required({ msg: 'Email is required' }),
@@ -92,4 +92,3 @@ class SignIn extends Component {
 }
 
 export default reduxForm({ form: 'signin' })(SignIn);
-

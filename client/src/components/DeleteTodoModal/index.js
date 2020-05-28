@@ -6,6 +6,7 @@ export default (props) => (
     trigger={ <Button color='red' content='Delete' size='small'/> }
     basic
   >
+
     <Header icon='archive' content='Delete this todo'/>
     <Modal.Content>
       <p>Are you sure you want to delete this todo?</p>
