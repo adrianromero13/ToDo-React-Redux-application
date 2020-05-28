@@ -6,6 +6,7 @@ import {
   GET_USER_TODOS,
   GET_USER_TODOS_ERROR,
   UPDATE_TODO_BY_ID_ERROR,
+  DELETE_TODO_BY_ID_ERROR,
 } from '../types';
 
 
@@ -56,4 +57,14 @@ export const updateTodoCompletedById = (id, completed, text) => async dispatch =
   } catch (e) {
     dispatch({ type: UPDATE_TODO_BY_ID_ERROR, payload: e });
   }
-}
+};
+
+export const deleteTodoById = id => async dispatch => {
+  try {
+    await axios.delete(`/api/user/todos/${id}`, { headers: { 'authorization': localStorage.getItem('token')} });
+    const { data } = await axios.get('api/user/todos', { headers: { 'authorization': localStorage.getItem('token')} } );
+    dispatch({ type: GET_USER_TODOS, payload: data });
+  } catch (e) {
+    dispatch({ type: DELETE_TODO_BY_ID_ERROR, payload: e });
+  }
+};

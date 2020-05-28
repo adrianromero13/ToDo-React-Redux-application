@@ -3,19 +3,19 @@ import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 
 export default (props) => (
   <Modal
-    // what do you want this button to look like 
-    trigger={<Button color='red' content='Delete' size='small' />}
-    // a simple modal with limited functionality
+    trigger={ <Button color='red' content='Delete' size='small'/> }
     basic
-
   >
-    <Header icon='archive' content='Delete this Todo' />
+    <Header icon='archive' content='Delete this todo'/>
     <Modal.Content>
       <p>Are you sure you want to delete this todo?</p>
       <p>{props.text}</p>
     </Modal.Content>
     <Modal.Actions>
-      <Button fluid negative>
+      <Button
+        fluid
+        negative
+        onClick={ () => props.handleDelete(props.id)}>
         <Icon name='remove'/> Are you sure you want to delete
       </Button>
     </Modal.Actions>

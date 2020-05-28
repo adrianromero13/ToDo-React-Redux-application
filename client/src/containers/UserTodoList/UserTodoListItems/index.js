@@ -3,6 +3,8 @@ import { Header, List, Button } from 'semantic-ui-react';
 
 import DeleteTodoModal from './../../../components/DeleteTodoModel';
 
+
+
 //using an if statement so use {}
 export default (props) => {
   if (props.todos.length === 0) {
@@ -24,7 +26,8 @@ export default (props) => {
               size='small'
               onClick={() => props.handUpdate(_id, completed, text)}
             />
-            <DeleteTodoModal text={text}/>
+            <DeleteTodoModal handleDelete={props.handleDelete} id={_id} text={text}/>
+            {/* create delete function  */}
           </List.Content>
         </List.Item>
       );

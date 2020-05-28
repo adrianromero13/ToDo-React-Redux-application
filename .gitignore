@@ -1,5 +1,2 @@
 node_modules
-package-lock.json
-.idea
-config.js
-.eslintrc.json
+/node_modules

@@ -18,20 +18,20 @@ import SignOut from '../SignOut';
 import SignIn from '../SignIn';
 
 class App extends Component {
+
   render() {
     return (
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
         <Grid.Column style={{ maxWidth: 700 }}>
           {/* build a navbar to navigate through pages  and authenticated using token passed down from state as props*/}
           <Navbar isLoggedIn={this.props.authenticated} />
-
           {/* <p>{ this.props.counter }</p>  the way to set up HOC (Higher Order Component) to place state in any component */}
           <Route exact path='/counter' component={Counter} />
-          <Route exact path='/alltodos' component={AllTodosList} />
           <Route exact path='/usertodos' component={UserTodoList} />
-          <Route exact path='/' component={SignUp} />
-          <Route exact path='/signOut' component={SignOut} />
+          <Route exact path='/alltodos' component={AllTodosList} />
           <Route exact path='/signIn' component={SignIn} />
+          <Route exact path='/signOut' component={SignOut} />
+          <Route exact path='/' component={SignUp} />
         </Grid.Column>
       </Grid>
     );

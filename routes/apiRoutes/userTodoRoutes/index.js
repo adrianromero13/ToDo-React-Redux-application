@@ -20,6 +20,7 @@ router.route('/todos')
   .post(requireAuth, addTodo);
 // /api/user/emails
 
+// /api/user/todos/:todoID
 router.route('/todos/:todoId')
   .delete(requireAuth, deleteUserTodoById)
   .put(requireAuth, updateTodoById);

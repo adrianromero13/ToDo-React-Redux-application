@@ -6,11 +6,10 @@ import { compose } from 'redux';
 import axios from 'axios';
 
 import UserTodoListItems from './UserTodoListItems';
+import requireAuth from './../../hoc/requireAuth';
 
-import { getUserTodos, updateTodoCompletedById } from './../../actions/todos';
+import { getUserTodos, updateTodoCompletedById, deleteTodoById } from './../../actions/todos';
 import { ADD_TODO_ERROR, ADD_TODO } from './../../actions/types';
-
-
 
 
 class UserTodoList extends Component {
@@ -20,6 +19,7 @@ class UserTodoList extends Component {
     start: 0,
     end: 10
   }
+
 
   onSubmit = async (formValues, dispatch) => {
     try {
@@ -88,6 +88,7 @@ class UserTodoList extends Component {
           <UserTodoListItems 
             todos={this.props.todos.slice(this.state.start, this.state.end)} 
             handleUpdate={this.props.updateTodoCompletedById}
+            handleDelete={this.props.deleteTodoById}
           /> {/* this.props.todos uptained from HOC from mapStateToProps and pass in to this container being rendered*/}
 
         </List>
@@ -116,11 +117,12 @@ class UserTodoList extends Component {
 // }
 
 // 
-function mapStateToProps({ todos: { userTodos, getUserTodosServerError, getUserTodosClientError } }) {
+function mapStateToProps({ todos: { userTodos, getUserTodosServerError, getUserTodosClientError, deleteTodoByIdError } }) {
   return {
     todos: userTodos,
     clientError: getUserTodosClientError,
-    serverError: getUserTodosServerError
+    serverError: getUserTodosServerError,
+    deleteTodoByIdError,
   };
 }
 
@@ -134,6 +136,7 @@ function mapStateToProps({ todos: { userTodos, getUserTodosServerError, getUserT
 // 3rd way
 export default compose(
   reduxForm({ form: 'addTodo' }),
+  requireAuth,
   // make sure your connect function has all the components 
-  connect(mapStateToProps, { getUserTodos, updateTodoCompletedById })
+  connect(mapStateToProps, { getUserTodos, updateTodoCompletedById, deleteTodoById })
 )(UserTodoList);

@@ -9,7 +9,7 @@ import App from './containers/App';
 //folder inside of src/reducers
 import reducers from './reducers';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true }) || compose;
 
 // this will take three parameters
 const store = createStore(

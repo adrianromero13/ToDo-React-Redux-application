@@ -1,10 +1,10 @@
 //combined reducers and form reducers from redux
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-
 import counterReducer from './counterReducer';
 //todos reducer
 import todosReducer from './todosReducer';
+//auth reducer
 import authReducer from './authReducer';
 
 import { ADD_TODO } from '../actions/types';
